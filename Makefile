@@ -1,2 +1,2 @@
-zed: main.c
-	$(CC) main.c -o zed -Wall -Wextra -pedantic -std=c99
+zin: main.c
+	$(CC) main.c -o zin -Wall -Wextra -pedantic -std=c99

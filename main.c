@@ -19,7 +19,11 @@ void disableRawMode() {
 }
 
 void enableRawMode() {
-  struct termios raw;
+  if (tcgetattr(STDIN_FILENO, &orig_termios) == -1)
+    die("tcgetattr");
+  atexit(disableRawMode);
+
+  struct termios raw = orig_termios;
   tcgetattr(STDIN_FILENO, &raw);
   raw.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
   raw.c_lflag &= ~(ICRNL | IXON);
